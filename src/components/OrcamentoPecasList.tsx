@@ -26,7 +26,7 @@ export const OrcamentoPecasList = ({ orcamentoId, localPecas = [], setLocalPecas
   // Se tem orcamentoId, usa dados do banco, senão usa dados locais
   const displayPecas = orcamentoId ? orcamentoPecas : localPecas
 
-  const handleAddPeca = (pecaId: string, quantidade: number, valorUnitario: number) => {
+  const handleAddPeca = (pecaId: string, quantidade: number, valorUnitario: number, pecaNome?: string) => {
     if (orcamentoId) {
       // Se tem orcamentoId, salva no banco
       createOrcamentoPeca.mutate({
@@ -40,7 +40,7 @@ export const OrcamentoPecasList = ({ orcamentoId, localPecas = [], setLocalPecas
       const novaPeca: LocalPeca = {
         id: Date.now().toString(),
         peca_id: pecaId,
-        peca_nome: "Nome da Peça", // Seria ideal buscar o nome, mas simplificando
+        peca_nome: pecaNome || "Nome da Peça",
         quantidade,
         valor_unitario: valorUnitario,
       }

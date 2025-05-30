@@ -6,16 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Plus } from "lucide-react"
 import { usePecas } from "@/hooks/usePecas"
 
-interface LocalPeca {
-  id: string
-  peca_id: string
-  peca_nome: string
-  quantidade: number
-  valor_unitario: number
-}
-
 interface OrcamentoPecaFormProps {
-  onAddPeca: (pecaId: string, quantidade: number, valorUnitario: number) => void
+  onAddPeca: (pecaId: string, quantidade: number, valorUnitario: number, pecaNome?: string) => void
   isLoading?: boolean
 }
 
@@ -31,7 +23,8 @@ export const OrcamentoPecaForm = ({ onAddPeca, isLoading = false }: OrcamentoPec
       return
     }
 
-    onAddPeca(selectedPecaId, parseInt(quantidade), parseFloat(valorUnitario))
+    const peca = pecas.find(p => p.id === selectedPecaId)
+    onAddPeca(selectedPecaId, parseInt(quantidade), parseFloat(valorUnitario), peca?.nome)
 
     // Limpar campos
     setSelectedPecaId("")
