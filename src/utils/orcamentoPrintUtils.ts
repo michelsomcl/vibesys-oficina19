@@ -61,8 +61,8 @@ export const generateOrcamentoPrintContent = (orcamento: any, getVeiculoInfo: (o
             <thead>
               <tr>
                 <th>Serviço</th>
-                <th>Horas</th>
-                <th>Valor/Hora</th>
+                <th>Qtd</th>
+                <th>Valor Unitário</th>
                 <th>Total</th>
               </tr>
             </thead>

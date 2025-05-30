@@ -160,7 +160,7 @@ export const OrdemServicoDialog = ({ ordemServico, isOpen, onClose }: OrdemServi
                 <div className="space-y-2">
                   {ordemServico.orcamento.orcamento_servicos.map((item, index) => (
                     <div key={index} className="flex justify-between text-sm p-2 bg-gray-50 rounded">
-                      <span>{item.horas}h {item.servico?.nome}</span>
+                      <span>{item.horas}x {item.servico?.nome}</span>
                       <span>R$ {(parseFloat(item.horas.toString()) * parseFloat(item.valor_hora.toString())).toFixed(2).replace('.', ',')}</span>
                     </div>
                   ))}

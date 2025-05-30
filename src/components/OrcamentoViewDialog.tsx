@@ -103,7 +103,7 @@ export const OrcamentoViewDialog = ({ orcamento, isOpen, onClose }: OrcamentoVie
                   <div key={index} className="flex justify-between border-b pb-2">
                     <div>
                       <p className="font-medium">{item.servico?.nome}</p>
-                      <p className="text-sm text-muted-foreground">Horas: {item.horas}</p>
+                      <p className="text-sm text-muted-foreground">Qtd: {item.horas}</p>
                     </div>
                     <p className="font-medium">R$ {(parseFloat(item.horas.toString()) * parseFloat(item.valor_hora.toString())).toFixed(2).replace('.', ',')}</p>
                   </div>

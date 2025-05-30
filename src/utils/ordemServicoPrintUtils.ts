@@ -73,7 +73,7 @@ export const generateOrdemServicoPrintContent = (ordemServico: OrdemServicoWithD
         <div class="section">
           <h3>Serviços</h3>
           <table>
-            <tr><th>Serviço</th><th>Horas</th><th>Valor/Hora</th><th>Total</th></tr>
+            <tr><th>Serviço</th><th>Qtd</th><th>Valor Unitário</th><th>Total</th></tr>
             ${ordemServico.orcamento?.orcamento_servicos?.map(item => `
               <tr>
                 <td>${item.servico?.nome}</td>
@@ -88,7 +88,7 @@ export const generateOrdemServicoPrintContent = (ordemServico: OrdemServicoWithD
         <div class="section">
           <h3>Peças</h3>
           <table>
-            <tr><th>Peça</th><th>Quantidade</th><th>Valor Unitário</th><th>Total</th></tr>
+            <tr><th>Peça</th><th>Qtd</th><th>Valor Unitário</th><th>Total</th></tr>
             ${ordemServico.orcamento?.orcamento_pecas?.map(item => `
               <tr>
                 <td>${item.peca?.nome}</td>
