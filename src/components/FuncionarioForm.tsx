@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -9,9 +8,10 @@ import { TablesInsert } from "@/integrations/supabase/types"
 
 interface FuncionarioFormProps {
   onSuccess?: () => void
+  onCancel?: () => void
 }
 
-export const FuncionarioForm = ({ onSuccess }: FuncionarioFormProps) => {
+export const FuncionarioForm = ({ onSuccess, onCancel }: FuncionarioFormProps) => {
   const [funcionarioData, setFuncionarioData] = useState<TablesInsert<"funcionarios">>({
     nome: "",
     categoria: "Mecânico",
@@ -43,6 +43,17 @@ export const FuncionarioForm = ({ onSuccess }: FuncionarioFormProps) => {
     })
   }
 
+  const handleCancel = () => {
+    setFuncionarioData({
+      nome: "",
+      categoria: "Mecânico",
+      documento: "",
+      telefone: "",
+      endereco: "",
+    })
+    onCancel?.()
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-2 gap-4">
@@ -52,7 +63,7 @@ export const FuncionarioForm = ({ onSuccess }: FuncionarioFormProps) => {
             id="nome" 
             placeholder="Nome do funcionário" 
             value={funcionarioData.nome}
-            onChange={(e) => setFuncionarioData(prev => ({ ...prev, nome: e.target.value }))}
+            onChange={(e) => setFuncionarioData(prev => ({ ...prev, nome: e.target.value }))} 
             required
           />
         </div>
@@ -83,7 +94,7 @@ export const FuncionarioForm = ({ onSuccess }: FuncionarioFormProps) => {
             id="documento" 
             placeholder="000.000.000-00" 
             value={funcionarioData.documento}
-            onChange={(e) => setFuncionarioData(prev => ({ ...prev, documento: e.target.value }))}
+            onChange={(e) => setFuncionarioData(prev => ({ ...prev, documento: e.target.value }))} 
             required
           />
         </div>
@@ -93,7 +104,7 @@ export const FuncionarioForm = ({ onSuccess }: FuncionarioFormProps) => {
             id="telefone" 
             placeholder="(11) 99999-9999" 
             value={funcionarioData.telefone}
-            onChange={(e) => setFuncionarioData(prev => ({ ...prev, telefone: e.target.value }))}
+            onChange={(e) => setFuncionarioData(prev => ({ ...prev, telefone: e.target.value }))} 
           />
         </div>
       </div>
@@ -104,12 +115,12 @@ export const FuncionarioForm = ({ onSuccess }: FuncionarioFormProps) => {
           id="endereco" 
           placeholder="Endereço completo" 
           value={funcionarioData.endereco}
-          onChange={(e) => setFuncionarioData(prev => ({ ...prev, endereco: e.target.value }))}
+          onChange={(e) => setFuncionarioData(prev => ({ ...prev, endereco: e.target.value }))} 
         />
       </div>
       
       <div className="flex justify-end gap-2">
-        <Button type="button" variant="outline">Cancelar</Button>
+        <Button type="button" variant="outline" onClick={handleCancel}>Cancelar</Button>
         <Button 
           type="submit" 
           className="bg-primary hover:bg-primary/90"

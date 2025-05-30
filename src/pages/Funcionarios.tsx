@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -76,6 +75,10 @@ const Funcionarios = () => {
     setIsDialogOpen(false)
   }
 
+  const handleFormCancel = () => {
+    setIsDialogOpen(false)
+  }
+
   const handleEdit = (funcionario: any) => {
     setEditingFuncionario(funcionario)
   }
@@ -107,7 +110,7 @@ const Funcionarios = () => {
             <DialogHeader>
               <DialogTitle>Cadastrar Novo Funcionário</DialogTitle>
             </DialogHeader>
-            <FuncionarioForm onSuccess={handleFormSuccess} />
+            <FuncionarioForm onSuccess={handleFormSuccess} onCancel={handleFormCancel} />
           </DialogContent>
         </Dialog>
       </div>

@@ -10,7 +10,7 @@ import { usePecas, useCreatePeca, useDeletePeca } from "@/hooks/usePecas"
 import { TablesInsert } from "@/integrations/supabase/types"
 import { EditPecaDialog } from "@/components/EditPecaDialog"
 
-const PecaForm = ({ onSuccess }: { onSuccess?: () => void }) => {
+const PecaForm = ({ onSuccess, onCancel }: { onSuccess?: () => void, onCancel?: () => void }) => {
   const [pecaData, setPecaData] = useState<TablesInsert<"pecas">>({
     nome: "",
     valor_unitario: 0,
@@ -38,6 +38,15 @@ const PecaForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     })
   }
 
+  const handleCancel = () => {
+    setPecaData({
+      nome: "",
+      valor_unitario: 0,
+      estoque: 0,
+    })
+    onCancel?.()
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
@@ -46,7 +55,7 @@ const PecaForm = ({ onSuccess }: { onSuccess?: () => void }) => {
           id="nome" 
           placeholder="Nome da peça" 
           value={pecaData.nome}
-          onChange={(e) => setPecaData(prev => ({ ...prev, nome: e.target.value }))}
+          onChange={(e) => setPecaData(prev => ({ ...prev, nome: e.target.value }))} 
           required
         />
       </div>
@@ -60,7 +69,7 @@ const PecaForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             step="0.01"
             placeholder="0,00" 
             value={pecaData.valor_unitario || ""}
-            onChange={(e) => setPecaData(prev => ({ ...prev, valor_unitario: parseFloat(e.target.value) || 0 }))}
+            onChange={(e) => setPecaData(prev => ({ ...prev, valor_unitario: parseFloat(e.target.value) || 0 }))} 
             required
           />
         </div>
@@ -71,13 +80,13 @@ const PecaForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             type="number"
             placeholder="0" 
             value={pecaData.estoque || ""}
-            onChange={(e) => setPecaData(prev => ({ ...prev, estoque: parseInt(e.target.value) || 0 }))}
+            onChange={(e) => setPecaData(prev => ({ ...prev, estoque: parseInt(e.target.value) || 0 }))} 
           />
         </div>
       </div>
       
       <div className="flex justify-end gap-2">
-        <Button type="button" variant="outline">Cancelar</Button>
+        <Button type="button" variant="outline" onClick={handleCancel}>Cancelar</Button>
         <Button 
           type="submit" 
           className="bg-primary hover:bg-primary/90"
@@ -112,6 +121,10 @@ const Pecas = () => {
     setIsDialogOpen(false)
   }
 
+  const handleFormCancel = () => {
+    setIsDialogOpen(false)
+  }
+
   const handleEdit = (peca: any) => {
     setEditingPeca(peca)
   }
@@ -143,7 +156,7 @@ const Pecas = () => {
             <DialogHeader>
               <DialogTitle>Cadastrar Nova Peça</DialogTitle>
             </DialogHeader>
-            <PecaForm onSuccess={handleFormSuccess} />
+            <PecaForm onSuccess={handleFormSuccess} onCancel={handleFormCancel} />
           </DialogContent>
         </Dialog>
       </div>
